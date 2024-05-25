@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "812249530250",
+    "project_id": "citu-crate",
+    "storage_bucket": "citu-crate.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:812249530250:android:16127877fedd8a51fd1273",
+        "android_client_info": {
+          "package_name": "com.example.citu_crate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB45ugwsyks39icdTd5-R3-F5xB7IW_B98"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
