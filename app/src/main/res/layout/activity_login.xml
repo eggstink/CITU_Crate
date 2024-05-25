@@ -24,13 +24,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/studID"
+        android:id="@+id/email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/edit_text_bg"
         android:drawableLeft="@drawable/ic_baseline_account_circle"
         android:drawablePadding="10dp"
-        android:hint="Student ID"
+        android:hint="Email Address"
         android:padding="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,14 +51,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintWidth_percent=".8"
-        app:layout_constraintTop_toBottomOf="@+id/studID"
+        app:layout_constraintTop_toBottomOf="@+id/email"
         tools:layout_editor_absoluteY="364dp" />
 
     <Button
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Sign In"
-        android:onClick="signip"
         android:textAllCaps="false"
         android:textStyle="bold"
         android:padding="15dp"
