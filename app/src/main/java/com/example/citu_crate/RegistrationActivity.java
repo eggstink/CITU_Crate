@@ -1,6 +1,8 @@
 package com.example.citu_crate;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,5 +22,9 @@ public class RegistrationActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    public void signin(View view){
+        startActivity(new Intent(RegistrationActivity.this, LogIn.class));
     }
 }

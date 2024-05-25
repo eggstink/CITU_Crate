@@ -5,21 +5,96 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LogIn">
+    tools:context=".LogIn"
+    android:background="@drawable/designlogin2">
 
     <TextView
+        android:id="@+id/tvsignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:fontFamily="@font/aclonica"
+        android:text="Sign In"
+        android:textColor="@color/textHeading"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintVertical_bias="0.2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/studID"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_bg"
+        android:drawableLeft="@drawable/ic_baseline_account_circle"
+        android:drawablePadding="10dp"
+        android:hint="Student ID"
+        android:padding="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvsignUp"
+        app:layout_constraintWidth_percent=".8" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_bg"
+        android:drawableLeft="@drawable/ic_baseline_vpn_key_24"
+        android:drawablePadding="10dp"
+        android:hint="Password"
+        android:inputType="numberPassword"
+        android:padding="15dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent=".8"
+        app:layout_constraintTop_toBottomOf="@+id/studID"
+        tools:layout_editor_absoluteY="364dp" />
+
     <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Sign In"
+        android:onClick="signip"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:padding="15dp"
+        android:id="@+id/btnSignin"
+        app:layout_constraintWidth_percent=".4"
+        app:layout_constraintVertical_bias=".2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password"
+        />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign up"
-        android:id="@+id/btnSignup"
-        tools:ignore="MissingConstraints" />
+        android:text="Don't Have An Account?"
+        android:id="@+id/tvNoAcc"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/password"
+        app:layout_constraintStart_toStartOf="@+id/password"
+        app:layout_constraintVertical_bias=".2"
+        app:layout_constraintHorizontal_bias=".3"
+        app:layout_constraintTop_toBottomOf="@+id/btnSignin"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="signUp"
+        android:text="Sign Up"
+        android:textColor="@color/pink"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tvNoAcc"
+        app:layout_constraintStart_toEndOf="@+id/tvNoAcc"
+        app:layout_constraintTop_toTopOf="@id/tvNoAcc"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

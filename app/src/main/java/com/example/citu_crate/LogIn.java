@@ -12,7 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class LogIn extends AppCompatActivity {
-    Button signup;
+    //Button signup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,13 +24,16 @@ public class LogIn extends AppCompatActivity {
             return insets;
         });
 
-        signup = (Button) findViewById(R.id.btnSignup);
-        signup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent1 = new Intent(LogIn.this, RegistrationActivity.class);
-                startActivity(intent1);
-            }
-        });
+        //signup = (Button) findViewById(R.id.btnSignup);
+//        signup.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent1 = new Intent(LogIn.this, RegistrationActivity.class);
+//                startActivity(intent1);
+//            }
+//        });
+    }
+    public void signUp(View view){
+        startActivity(new Intent(LogIn.this, RegistrationActivity.class));
     }
 }
