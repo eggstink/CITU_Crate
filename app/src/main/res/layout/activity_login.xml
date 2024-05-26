@@ -5,8 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LogIn"
-    android:background="@drawable/designlogin2">
+    android:background="@drawable/designlogin2"
+    tools:context=".LogIn">
 
     <TextView
         android:id="@+id/tvsignUp"
@@ -17,11 +17,11 @@
         android:textColor="@color/textHeading"
         android:textSize="40sp"
         android:textStyle="bold"
-        app:layout_constraintVertical_bias="0.2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2" />
 
     <EditText
         android:id="@+id/email"
@@ -41,48 +41,46 @@
         android:id="@+id/password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:background="@drawable/edit_text_bg"
         android:drawableLeft="@drawable/ic_baseline_vpn_key_24"
         android:drawablePadding="10dp"
         android:hint="Password"
         android:inputType="numberPassword"
         android:padding="15dp"
-        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent=".8"
         app:layout_constraintTop_toBottomOf="@+id/email"
+        app:layout_constraintWidth_percent=".8"
         tools:layout_editor_absoluteY="364dp" />
 
     <Button
+        android:id="@+id/btnSignin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:padding="15dp"
         android:text="Sign In"
         android:textAllCaps="false"
         android:textStyle="bold"
-        android:padding="15dp"
-        android:id="@+id/btnSignin"
-        app:layout_constraintWidth_percent=".4"
-        app:layout_constraintVertical_bias=".2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password"
-        />
+        app:layout_constraintVertical_bias=".2"
+        app:layout_constraintWidth_percent=".4" />
 
     <TextView
+        android:id="@+id/tvNoAcc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Don't Have An Account?"
-        android:id="@+id/tvNoAcc"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/password"
-        app:layout_constraintStart_toStartOf="@+id/password"
-        app:layout_constraintVertical_bias=".2"
         app:layout_constraintHorizontal_bias=".3"
+        app:layout_constraintStart_toStartOf="@+id/password"
         app:layout_constraintTop_toBottomOf="@+id/btnSignin"
-        />
+        app:layout_constraintVertical_bias=".2" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -94,6 +92,6 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tvNoAcc"
         app:layout_constraintStart_toEndOf="@+id/tvNoAcc"
-        app:layout_constraintTop_toTopOf="@id/tvNoAcc"/>
+        app:layout_constraintTop_toTopOf="@id/tvNoAcc" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
