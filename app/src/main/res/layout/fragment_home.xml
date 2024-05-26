@@ -54,14 +54,12 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rec_category"
             android:layout_width="wrap_content"
             android:layout_height="90dp"
             android:layout_marginLeft="9dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            />
+            android:layout_marginTop="10dp" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
