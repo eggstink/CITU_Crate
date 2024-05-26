@@ -25,13 +25,16 @@ import kotlin.collections.ArrayDeque;
 
 public class HomeFragment extends Fragment {
 
-    RecyclerView catRecyclerview,newProductRecyclerview;
+    RecyclerView catRecyclerview,newProductRecyclerview,popularRecyclerview;
 
     CategoryAdapter categoryAdapter;
     List<CategoryModel> categoryModelList;
 
     NewProductsAdapter newProductsAdapter;
     List<NewProductsModel> newProductsModelList;
+
+    PopularProductAdapter popularProductAdapter;
+    List<PoplularProductModel> poplularProductModelList;
     FirebaseFirestore db;
     public HomeFragment() {
         // Required empty public constructor
@@ -44,6 +47,7 @@ public class HomeFragment extends Fragment {
 
         catRecyclerview = root.findViewById(R.id.rec_category);
         newProductRecyclerview = root.findViewById(R.id.new_product_rec);
+        popularRecyclerview = root.findViewById(R.id.popular_rec);
 
         db = FirebaseFirestore.getInstance();
 
@@ -92,6 +96,28 @@ public class HomeFragment extends Fragment {
                     }
                 });
 
+        popularRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
+        poplularProductModelList = new ArrayList<>();
+        popularProductAdapter = new PopularProductAdapter(getContext(), poplularProductModelList);
+        popularRecyclerview.setAdapter(popularProductAdapter);
+
+
+        db.collection("AllProducts")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                PoplularProductModel popularProductModel = document.toObject(PoplularProductModel.class);
+                                poplularProductModelList.add(popularProductModel);
+                                popularProductAdapter.notifyDataSetChanged();
+                            }
+                        } else {
+                            Toast.makeText(getContext(), ""+task.getException(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
         return root;
     }
 }
