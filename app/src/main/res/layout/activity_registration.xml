@@ -92,7 +92,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Don't Have An Account?"
+        android:text="Already Have An Account?"
         android:id="@+id/tvNoAcc"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
