@@ -15,6 +15,12 @@
         android:theme="@style/Theme.CITU_Crate"
         tools:targetApi="31">
         <activity
+            android:name=".MainActivity2"
+            android:exported="false" />
+        <activity
+            android:name=".ShowAllActivity"
+            android:exported="false" />
+        <activity
             android:name=".DetailedActivity"
             android:exported="false" />
         <activity

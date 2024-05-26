@@ -1,6 +1,7 @@
 package com.example.citu_crate;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,9 +33,19 @@ public class PopularProductAdapter extends RecyclerView.Adapter<PopularProductAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         Glide.with(context).load(poplularProductModelList.get(position).getImg_url()).into(holder.imageView);
         holder.name.setText(poplularProductModelList.get(position).getName());
         holder.price.setText(String.valueOf(poplularProductModelList.get(position).getPrice()));
+
+        holder.itemView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                    Intent intent = new Intent(context, DetailedActivity.class);
+                    intent.putExtra("detailed",poplularProductModelList.get(position));
+                    context.startActivity(intent);
+            }
+        });
     }
 
     @Override

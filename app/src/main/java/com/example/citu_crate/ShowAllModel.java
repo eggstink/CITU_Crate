@@ -1,23 +1,13 @@
 package com.example.citu_crate;
 
-import java.io.Serializable;
-
-public class PoplularProductModel implements Serializable {
+public class ShowAllModel {
     String description;
     String name;
     String rating;
     int price;
     String img_url;
 
-    public PoplularProductModel() {
-    }
-
-    public PoplularProductModel(String description, String name, String rating, int price, String img_url) {
-        this.description = description;
-        this.name = name;
-        this.rating = rating;
-        this.price = price;
-        this.img_url = img_url;
+    public ShowAllModel() {
     }
 
     public String getDescription() {
@@ -57,6 +47,14 @@ public class PoplularProductModel implements Serializable {
     }
 
     public void setImg_url(String img_url) {
+        this.img_url = img_url;
+    }
+
+    public ShowAllModel(String description, String name, String rating, int price, String img_url) {
+        this.description = description;
+        this.name = name;
+        this.rating = rating;
+        this.price = price;
         this.img_url = img_url;
     }
 }

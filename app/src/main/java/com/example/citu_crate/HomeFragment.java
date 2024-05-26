@@ -1,5 +1,6 @@
 package com.example.citu_crate;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,6 +27,7 @@ import kotlin.collections.ArrayDeque;
 
 public class HomeFragment extends Fragment {
 
+    TextView catShowAll,popularShowAll,newProductShowAll;
     RecyclerView catRecyclerview,newProductRecyclerview,popularRecyclerview;
 
     CategoryAdapter categoryAdapter;
@@ -45,11 +48,37 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_home, container,false);
 
+        db = FirebaseFirestore.getInstance();
+
         catRecyclerview = root.findViewById(R.id.rec_category);
         newProductRecyclerview = root.findViewById(R.id.new_product_rec);
         popularRecyclerview = root.findViewById(R.id.popular_rec);
+        catShowAll = root.findViewById(R.id.category_see_all);
+        popularShowAll = root.findViewById(R.id.popular_see_all);
+        newProductShowAll = root.findViewById(R.id.newProducts_see_all);
 
-        db = FirebaseFirestore.getInstance();
+        catShowAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),ShowAllActivity.class);
+                startActivity(intent);
+            }
+        });
+        newProductShowAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),ShowAllActivity.class);
+                startActivity(intent);
+            }
+        });
+        popularShowAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),ShowAllActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         catRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
         categoryModelList = new ArrayList<>();
