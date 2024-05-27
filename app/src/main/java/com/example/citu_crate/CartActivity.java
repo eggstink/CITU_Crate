@@ -1,6 +1,11 @@
 package com.example.citu_crate;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -9,6 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CartActivity extends AppCompatActivity {
+    int overAllTotalAmount;
+    TextView overAllAmount;
     Toolbar toolbar;
     RecyclerView recyc;
     List<MyCartModel> cartModelList;
@@ -43,6 +51,9 @@ public class CartActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, new IntentFilter("MyTotalAmount"));
+
+        overAllAmount = findViewById(R.id.textView3);
         recyc = findViewById(R.id.cart_rec);
         recyc.setLayoutManager(new LinearLayoutManager(this));
         cartModelList = new ArrayList<>();
@@ -53,8 +64,8 @@ public class CartActivity extends AppCompatActivity {
                 .collection("User").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
-                            for(DocumentSnapshot doc : task.getResult().getDocuments()){
+                        if (task.isSuccessful()) {
+                            for (DocumentSnapshot doc : task.getResult().getDocuments()) {
                                 MyCartModel myCartModel = doc.toObject(MyCartModel.class);
                                 cartModelList.add(myCartModel);
                                 cartAdapter.notifyDataSetChanged();
@@ -63,4 +74,11 @@ public class CartActivity extends AppCompatActivity {
                     }
                 });
     }
+    public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int totalBill = intent.getIntExtra("totalAmount",0);
+            overAllAmount.setText("Total Amount: " + totalBill + "₱");
+        }
+    };
 }
