@@ -12,12 +12,13 @@
         android:id="@+id/address_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#8FF7FD"
+        android:background="@color/darkmaroon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Your Address" />
+        app:title="Your Address"
+        app:titleTextColor="@color/white" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/address_recycler"
@@ -35,8 +36,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:backgroundTint="@color/darkmaroon"
         android:text="Add Address"
-        android:textColor="@color/white"
+        android:textColor="@color/gold"
         app:layout_constraintBottom_toTopOf="@+id/payment_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -46,11 +48,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:background="@color/blue"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/darkmaroon"
         android:text="Continue to payment"
-        android:textColor="@android:color/white"
+        android:textColor="@color/gold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toStartOf="parent" />
 
 

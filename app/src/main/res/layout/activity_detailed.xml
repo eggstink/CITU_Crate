@@ -167,10 +167,9 @@
         android:id="@+id/add_to_cart"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintVertical_bias="1"
+        android:backgroundTint="@color/darkmaroon"
         android:drawableLeft="@drawable/ic_baseline_shopping_cart_24"
         android:drawableTint="@color/white"
-        android:backgroundTint="@color/pink"
         android:padding="14dp"
         android:text="Add to Cart"
         android:textAllCaps="false"
@@ -179,12 +178,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardview"
+        app:layout_constraintVertical_bias="1"
         app:layout_constraintWidth_percent=".8" />
 
     <Button
         android:id="@+id/buy_now"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/gold"
         android:drawableLeft="@drawable/mycart"
         android:drawableTint="@color/white"
         android:padding="14dp"
