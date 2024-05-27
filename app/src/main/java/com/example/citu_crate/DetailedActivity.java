@@ -59,7 +59,7 @@ public class DetailedActivity extends AppCompatActivity {
         //2:41 toolbar 2
 
         firestore = FirebaseFirestore.getInstance();
-
+        auth=FirebaseAuth.getInstance();
         final Object obj = getIntent().getSerializableExtra("detailed");
 
         if (obj instanceof NewProductsModel) {
