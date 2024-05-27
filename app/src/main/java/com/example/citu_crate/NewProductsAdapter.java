@@ -38,9 +38,8 @@ public class NewProductsAdapter extends RecyclerView.Adapter<NewProductsAdapter.
         holder.itemView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                final int positionFinal = position;
                 Intent intent = new Intent(context, DetailedActivity.class);
-                intent.putExtra("detailed", list.get(positionFinal));
+                intent.putExtra("detailed", list.get(holder.getPosition()));
                 context.startActivity(intent);
             }
         });
