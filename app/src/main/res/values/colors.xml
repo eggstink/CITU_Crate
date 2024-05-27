@@ -12,4 +12,7 @@
     <color name="blue">#00f0ff</color>
     <color name="backgroundColor">#FFFCFC</color>
     <color name="textHeading">#008eff</color>
+
+    <color name="darkmaroon">#661017</color>
+    <color name="gold">#F1C41A</color>
 </resources>
