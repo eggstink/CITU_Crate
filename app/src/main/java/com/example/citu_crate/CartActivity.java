@@ -5,7 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -30,6 +33,7 @@ import java.util.List;
 
 public class CartActivity extends AppCompatActivity {
     int overAllTotalAmount;
+    Button btnCheckout;
     TextView overAllAmount;
     Toolbar toolbar;
     RecyclerView recyc;
@@ -59,6 +63,7 @@ public class CartActivity extends AppCompatActivity {
         cartModelList = new ArrayList<>();
         cartAdapter = new MyCartAdapter(this, cartModelList);
         recyc.setAdapter(cartAdapter);
+        btnCheckout = findViewById(R.id.buy_now);
 
         firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())
                 .collection("User").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -73,6 +78,14 @@ public class CartActivity extends AppCompatActivity {
                         }
                     }
                 });
+        btnCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(CartActivity.this, "Order Received", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(CartActivity.this, MainActivity.class));
+                finish();
+            }
+        });
     }
     public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
