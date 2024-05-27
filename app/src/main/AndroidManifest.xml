@@ -15,7 +15,7 @@
         android:theme="@style/Theme.CITU_Crate"
         tools:targetApi="31">
         <activity
-            android:name=".LogIn"
+            android:name=".LoginActivity"
             android:exported="false" />
         <activity
             android:name=".AddAddressActivity"

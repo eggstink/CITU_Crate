@@ -6,33 +6,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkmaroon"
-    tools:context=".LogIn">
+    tools:context=".LoginActivity">
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/robotoslab_black"
+        android:text="Welcome to"
+        android:textColor="@color/gold"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvsignUp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tvsignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="168dp"
         android:fontFamily="@font/robotoslab_black"
-        android:text="Log In"
+        android:text="CIT-U Crate"
         android:textColor="@color/gold"
         android:textSize="40sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.18" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="70dp"
         android:background="@drawable/edit_text_bg"
-        android:drawableLeft="@drawable/email_icon"
+        android:drawableStart="@drawable/email_icon"
         android:drawablePadding="10dp"
-        android:hint="Email Address"
+        android:hint="@string/email_address"
         android:padding="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,11 +54,11 @@
         android:id="@+id/password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/edit_text_bg"
-        android:drawableLeft="@drawable/icons8_password_30"
+        android:drawableStart="@drawable/icons8_password_30"
         android:drawablePadding="10dp"
-        android:hint="Password"
+        android:hint="@string/password"
         android:inputType="textPassword"
         android:padding="15dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,46 +70,48 @@
         android:id="@+id/btnSignin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
         android:backgroundTint="@color/gold"
-        android:padding="15dp"
-        android:text="Log In"
-        android:textColor="@color/black"
-        android:textAllCaps="false"
-        android:textStyle="bold"
         android:fontFamily="@font/robotoslab_black"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="15dp"
+        android:text="@string/log_in"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias=".2"
         app:layout_constraintWidth_percent=".4" />
 
-    <TextView
-        android:id="@+id/tvNoAcc"
+    <LinearLayout
+        android:id="@+id/tosignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Don't Have An Account?"
-        android:textColor="@color/white"
-        android:textSize="17sp"
-        android:fontFamily="@font/robotoslab_black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/password"
-        app:layout_constraintHorizontal_bias=".3"
-        app:layout_constraintStart_toStartOf="@+id/password"
-        app:layout_constraintTop_toBottomOf="@+id/btnSignin"
-        app:layout_constraintVertical_bias=".2" />
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSignin">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="signUp"
-        android:text="Sign Up"
-        android:textColor="@color/gold"
-        android:textSize="19sp"
-        android:textStyle="bold"
-        android:fontFamily="@font/robotoslab_black"
-        app:layout_constraintBottom_toBottomOf="@+id/tvNoAcc"
-        app:layout_constraintStart_toEndOf="@+id/tvNoAcc"
-        app:layout_constraintTop_toTopOf="@id/tvNoAcc" />
+        <TextView
+            android:id="@+id/tvNoAcc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/robotoslab_black"
+            android:paddingEnd="10dp"
+            android:text="@string/don_t_have_an_account"
+            android:textColor="@color/white"
+            android:textSize="17sp"/>
+z
+        <TextView
+            android:id="@+id/signUpNoAcc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/robotoslab_black"
+            android:text="@string/sign_up"
+            android:textColor="@color/gold"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
