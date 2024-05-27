@@ -15,6 +15,18 @@
         android:theme="@style/Theme.CITU_Crate"
         tools:targetApi="31">
         <activity
+            android:name=".AddAddressActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddressActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PaymentActivity"
+            android:exported="false" />
+        <activity
             android:name=".DetailedActivity"
             android:exported="false" />
         <activity

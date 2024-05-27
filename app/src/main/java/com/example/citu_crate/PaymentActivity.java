@@ -8,10 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -19,7 +19,7 @@ import androidx.core.view.WindowInsetsCompat;
 import org.json.JSONObject;
 
 public class PaymentActivity extends AppCompatActivity{
-    Toolbar tolbar;
+    Toolbar toolbar;
     TextView subTotal, discount, deliveryFee, total;
     Button btnPayment;
     double amount = 0.0;
@@ -41,35 +41,25 @@ public class PaymentActivity extends AppCompatActivity{
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         
-x        amount  =  getIntent().getDoubleExtra("amount",0.0);
+        amount  =  getIntent().getDoubleExtra("amount",0.0);
         
         subTotal = findViewById(R.id.sub_total);
         discount = findViewById(R.id.textView17);
         deliveryFee = findViewById(R.id.textView18);
         total = findViewById(R.id.total_amt);
-        btnPayment = findViewById(R.id.pay_btn)
+        btnPayment = findViewById(R.id.pay_btn);
         
         subTotal.setText("Php" + amount);
 
         btnPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(PaymentActivity.this,"Please pay in cash on delivery",Toast.LENGTH_LONG);
+                Toast.makeText(PaymentActivity.this,"Please pay in cash on delivery",Toast.LENGTH_LONG).show();
+                startActivity(new Intent(PaymentActivity.this,MainActivity.class));
             }
         });
         
-        //detailactivity buyNow Intent intent = new Intent(DetailActivity.this, PaymentActivity.class);
-            if(newProductsModel != null){
-                intent.putExtra("item", newProductsModel);
-            }
-            if(popularProductsModel != null){
-                intent.putExtra("item", popularProductsModel);
-            }
-        if(showAllModel != null){
-            intent.putExtra("item", showAllModel);
-        }
-        //startActivity(intent);
-        
+
         //AddressActivity onCreate Object obj = getIntent().getSerializableEExtra("item);
 //        paymentbtn
 //                double amnount  = 0.0;
