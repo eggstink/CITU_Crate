@@ -36,6 +36,9 @@
             android:name=".RegistrationActivity"
             android:exported="false" />
         <activity
+            android:name=".ShowAllActivity"
+            android:exported="false" />
+        <activity
             android:name=".LogIn"
             android:exported="true">
             <intent-filter>

@@ -28,6 +28,7 @@ public class DetailedActivity extends AppCompatActivity {
     PoplularProductModel poplularProductModel = null;
     ShowAllModel showAllModel = null;
     private FirebaseFirestore firestore;
+    ShowAllModel showAllModel = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,9 @@ public class DetailedActivity extends AppCompatActivity {
         });
         toolbar = findViewById(R.id.detailed_toolbar);
         setActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         //2:41 toolbar 2
 
         firestore = FirebaseFirestore.getInstance();
@@ -52,7 +55,7 @@ public class DetailedActivity extends AppCompatActivity {
             newProductsModel = (NewProductsModel) obj;
         } else if (obj instanceof PoplularProductModel) {
             poplularProductModel = (PoplularProductModel) obj;
-        }else if (obj instanceof ShowAllModel) {
+        } else if (obj instanceof ShowAllModel) {
             showAllModel = (ShowAllModel) obj;
         }
 
@@ -106,7 +109,7 @@ public class DetailedActivity extends AppCompatActivity {
                     intent.putExtra("item", poplularProductModel);
                 }
                 if (showAllModel != null) {
-                    intent.putExtra("item", showAllModel);
+                    intent.putExtra("item", showAllModel.getPrice());
                 }
                 startActivity(intent);
             }
