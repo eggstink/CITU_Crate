@@ -3,6 +3,7 @@ package com.example.citu_crate;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
@@ -11,8 +12,12 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +49,18 @@ public class CartActivity extends AppCompatActivity {
         cartAdapter = new MyCartAdapter(this, cartModelList);
         recyc.setAdapter(cartAdapter);
 
-        firestore.collection("AddToCart").document(auth.getCurrentUser())
+        firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())
+                .collection("User").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for(DocumentSnapshot doc : task.getResult().getDocuments()){
+                                MyCartModel myCartModel = doc.toObject(MyCartModel.class);
+                                cartModelList.add(myCartModel);
+                                cartAdapter.notifyDataSetChanged();
+                            }
+                        }
+                    }
+                });
     }
 }
