@@ -17,11 +17,10 @@
 
         <ImageView
 
-            android:background="@drawable/tempo"
             android:id="@+id/image_crate"
             android:layout_width="match_parent"
             android:layout_height="220dp"
-            />
+            android:background="@drawable/mainbg" />
 
         <LinearLayout
             android:layout_width="match_parent"
