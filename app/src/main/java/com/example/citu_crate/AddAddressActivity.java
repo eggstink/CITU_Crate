@@ -23,7 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AddAddressActivity extends AppCompatActivity {
+public class AddAddressActivity extends AppCompatActivity implements AddressAdapter.SelectedAddress{
 
     EditText build, roomnum, note, phoneNum;
     Toolbar  toolbar;
@@ -93,5 +93,10 @@ public class AddAddressActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void setAddress(String address) {
+
     }
 }
