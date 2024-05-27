@@ -51,6 +51,9 @@ public class AddressActivity extends AppCompatActivity implements AddressAdapter
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        Object obj = getIntent().getSerializableExtra("item");
+
+
         auth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
 
@@ -61,30 +64,6 @@ public class AddressActivity extends AppCompatActivity implements AddressAdapter
         addressModelList = new ArrayList<>();
         addAdap = new AddressAdapter(getApplicationContext(),addressModelList,this);
         recyc.setAdapter(addAdap);
-//        Object obj = getIntent().getSerializableExtra("item);
-//        paymentbtn
-//                double amnount  = 0.0;
-//                if(obj instanceof NewProductsModel){
-//                    NewProductsModel newProductsModel = (newProductsModel)  obj;
-//                    amount = newProductsModel.getPrice();
-//                }
-//        if(obj instanceof PopularProductsModel){
-//            PopularProductsModel popularProductsModel = (PopularProductsModel)  obj;
-//            amount = popularProductsModel.getPrice();
-//        }
-//        if(obj instanceof ShowAllModel){
-//            ShowAllModel showAllModel = (ShowAllModel)  obj;
-//            amount = showAllModel.getPrice();
-//        }
-//        Inntent intent = new Intenr(AddressAcctivity.this, PaymentActivity.class);
-//        intent.putExtra("amount",amount);
-//        startActivity(
-//                intent
-//        );
-//        onComplete
-//                after Toast is succesfdful
-//                startActivity(new Intent(AddAddressActivity.this, DeatailedActivity.class));
-//        finish();
         firestore.collection("CurrentUser").document(auth.getCurrentUser().getUid())
                 .collection("Address").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -101,7 +80,23 @@ public class AddressActivity extends AppCompatActivity implements AddressAdapter
         btnPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AddressActivity.this,PaymentActivity.class));
+
+                double amount  = 0.0;
+                if(obj instanceof NewProductsModel){
+                    NewProductsModel newProductsModel = (NewProductsModel)  obj;
+                    amount = newProductsModel.getPrice();
+                }
+                if(obj instanceof PoplularProductModel){
+                    PoplularProductModel popularProductsModel = (PoplularProductModel)  obj;
+                    amount = popularProductsModel.getPrice();
+                }
+                if(obj instanceof ShowAllModel){
+                    ShowAllModel showAllModel = (ShowAllModel)  obj;
+                    amount = showAllModel.getPrice();
+                }
+                Intent intent = new Intent(AddressActivity.this, PaymentActivity.class);
+                intent.putExtra("amount",amount);
+                startActivity(intent);
 
             }
         });

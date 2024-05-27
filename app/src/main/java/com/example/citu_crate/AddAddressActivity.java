@@ -1,5 +1,6 @@
 package com.example.citu_crate;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -84,6 +85,8 @@ public class AddAddressActivity extends AppCompatActivity implements AddressAdap
                                 public void onComplete(@NonNull Task<DocumentReference> task) {
                                     if(task.isSuccessful()){
                                         Toast.makeText(AddAddressActivity.this, "Address Added", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(AddAddressActivity.this,DetailedActivity.class));
+                                        finish();
                                     }
                                 }
                             });
