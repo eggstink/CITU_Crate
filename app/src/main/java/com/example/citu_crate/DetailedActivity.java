@@ -28,6 +28,7 @@ public class DetailedActivity extends AppCompatActivity {
     PoplularProductModel poplularProductModel = null;
     ShowAllModel showAllModel = null;
     private FirebaseFirestore firestore;
+    ShowAllModel showAllModel = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,9 @@ public class DetailedActivity extends AppCompatActivity {
         });
         toolbar = findViewById(R.id.detailed_toolbar);
         setActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         //2:41 toolbar 2
 
         firestore = FirebaseFirestore.getInstance();
@@ -52,6 +55,8 @@ public class DetailedActivity extends AppCompatActivity {
             newProductsModel = (NewProductsModel) obj;
         } else if (obj instanceof PoplularProductModel) {
             poplularProductModel = (PoplularProductModel) obj;
+        } else if (obj instanceof ShowAllModel) {
+            showAllModel = (ShowAllModel) obj;
         }
 
 
@@ -85,12 +90,12 @@ public class DetailedActivity extends AppCompatActivity {
             name.setText(poplularProductModel.getName());
         }
         if (showAllModel != null) {
-            Glide.with(getApplicationContext()).load(poplularProductModel.getImg_url()).into(detailedImg);
-            name.setText(poplularProductModel.getName());
-            rating.setText(poplularProductModel.getRating());
-            description.setText(poplularProductModel.getDescription());
-            price.setText(String.valueOf(poplularProductModel.getPrice()));
-            name.setText(poplularProductModel.getName());
+            Glide.with(getApplicationContext()).load(showAllModel.getImg_url()).into(detailedImg);
+            name.setText(showAllModel.getName());
+            rating.setText(showAllModel.getRating());
+            description.setText(showAllModel.getDescription());
+            price.setText(String.valueOf(showAllModel.getPrice()));
+            name.setText(showAllModel.getName());
         }
 
         buyNow.setOnClickListener(new View.OnClickListener() {
