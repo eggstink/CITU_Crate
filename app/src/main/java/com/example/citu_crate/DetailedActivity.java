@@ -26,6 +26,7 @@ public class DetailedActivity extends AppCompatActivity {
     ImageView addItems, removeItems;
     NewProductsModel newProductsModel = null;
     PoplularProductModel poplularProductModel = null;
+    ShowAllModel showAllModel = null;
     private FirebaseFirestore firestore;
 
     @Override
@@ -103,7 +104,7 @@ public class DetailedActivity extends AppCompatActivity {
                     intent.putExtra("item", poplularProductModel);
                 }
                 if (showAllModel != null) {
-                    intent.putExtra("item", showAllModel);
+                    intent.putExtra("item", showAllModel.getPrice());
                 }
                 startActivity(intent);
             }
