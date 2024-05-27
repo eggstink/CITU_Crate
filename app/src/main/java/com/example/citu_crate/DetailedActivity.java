@@ -83,8 +83,8 @@ public class DetailedActivity extends AppCompatActivity {
         addToCart = findViewById(R.id.add_to_cart);
         buyNow = findViewById(R.id.buy_now);
 
-        addItems = findViewById(R.id.detailed_img);
-        removeItems = findViewById(R.id.detailed_img);
+        addItems = findViewById(R.id.add_item);
+        removeItems = findViewById(R.id.remove_item);
 
         if (newProductsModel != null) {
             Glide.with(getApplicationContext()).load(newProductsModel.getImg_url()).into(detailedImg);
