@@ -58,32 +58,6 @@ public class PaymentActivity extends AppCompatActivity{
                 startActivity(new Intent(PaymentActivity.this,MainActivity.class));
             }
         });
-        
 
-        //AddressActivity onCreate Object obj = getIntent().getSerializableEExtra("item);
-//        paymentbtn
-//                double amnount  = 0.0;
-//                if(obj instanceof NewProductsModel){
-//                    NewProductsModel newProductsModel = (newProductsModel)  obj;
-//                    amount = newProductsModel.getPrice();
-//                }
-//        if(obj instanceof PopularProductsModel){
-//            PopularProductsModel popularProductsModel = (PopularProductsModel)  obj;
-//            amount = popularProductsModel.getPrice();
-//        }
-//        if(obj instanceof ShowAllModel){
-//            ShowAllModel showAllModel = (ShowAllModel)  obj;
-//            amount = showAllModel.getPrice();
-//        }
-//        Inntent intent = new Intenr(AddressAcctivity.this, PaymentActivity.class);
-//        intent.putExtra("amount",amount);
-//        startActivity(
-//                intent
-//        );
-//        onComplete
-//                after Toast is succesfdful
-//                startActivity(new Intent(AddAddressActivity.this, DeatailedActivity.class));
-//        finish();
-        //2.00 mark payment 2.0
     }
 }
