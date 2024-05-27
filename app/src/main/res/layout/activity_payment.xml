@@ -11,12 +11,13 @@
         android:id="@+id/payment_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#8FF7FD"
+        android:background="@color/darkmaroon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Payment Detailed" />
+        app:title="Payment Detailed"
+        app:titleTextColor="@color/white" />
 
 
     <TextView
@@ -120,9 +121,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
+        android:backgroundTint="@color/darkmaroon"
         android:text="Check Out"
+        android:textColor="@color/gold"
         android:textStyle="bold"
-        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
