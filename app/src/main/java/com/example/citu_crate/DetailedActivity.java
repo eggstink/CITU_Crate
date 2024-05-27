@@ -39,7 +39,7 @@ public class DetailedActivity extends AppCompatActivity {
     ShowAllModel showAllModel = null;
     FirebaseAuth auth;
     private FirebaseFirestore firestore;
-    ShowAllModel showAllModel = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
