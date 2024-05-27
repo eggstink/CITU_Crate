@@ -1,6 +1,7 @@
 package com.example.citu_crate;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     public void onBindViewHolder(@NonNull CategoryAdapter.ViewHolder holder, int position) {
         Glide.with(context).load(list.get(position).getImg_url()).into(holder.catImg);
         holder.catName.setText(list.get(position).getName());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,ShowAllActivity.class);
+                intent.putExtra("type",list.get(holder.getPosition()).getType());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
