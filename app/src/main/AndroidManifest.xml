@@ -15,6 +15,9 @@
         android:theme="@style/Theme.CITU_Crate"
         tools:targetApi="31">
         <activity
+            android:name=".SplashScreen"
+            android:exported="false" />
+        <activity
             android:name=".AddAddressActivity"
             android:exported="false" />
         <activity
