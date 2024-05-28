@@ -20,7 +20,8 @@
         app:showAsAction="always"/>
     <item
         android:id="@+id/menu_mywallet"
-        android:title="My Wallet"
         android:icon="@drawable/icons8_wallet_50__1_"
-        app:showAsAction="always"/>
+        android:iconTint="@color/gold"
+        android:title="My Wallet"
+        app:showAsAction="always" />
 </menu>

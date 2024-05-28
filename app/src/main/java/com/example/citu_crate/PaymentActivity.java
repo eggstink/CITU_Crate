@@ -68,13 +68,13 @@ public class PaymentActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 DocumentSnapshot document = task.getResult();
                                 if (document.exists()) {
-                                    double cash = document.getDouble("Cash");
+                                    double cash = document.getDouble("cash");
                                     // Check if user has enough money
                                     if (cash >= amount) {
                                         // Subtract the amount from the user's cash
                                         double newCash = cash - amount;
                                         db.collection("Users").document(mAuth.getCurrentUser().getUid())
-                                                .update("Cash", newCash)
+                                                .update("cash", newCash)
                                                 .addOnCompleteListener(task1 -> {
                                                     if (task1.isSuccessful()) {
                                                         Toast.makeText(PaymentActivity.this, "Payment successful", Toast.LENGTH_SHORT).show();

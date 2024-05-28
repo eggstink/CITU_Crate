@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this, CartActivity.class));
         } else if(id == R.id.menu_myaddress){
             startActivity(new Intent(MainActivity.this, AddressActivity.class));
+        } else if(id==R.id.menu_mywallet) {
+            startActivity(new Intent(MainActivity.this, WalletActivity.class));
         }
         return true;
     }
