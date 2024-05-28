@@ -19,7 +19,7 @@
             android:text="Cash" />
 
         <TextView
-            android:id="@+id/text_cash"
+            android:id="@+id/text_walletamount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
