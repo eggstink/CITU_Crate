@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         }else{
-                            Toast.makeText(LoginActivity.this, "Error:" + task.getException(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "You inputted an incorrect email address or password", Toast.LENGTH_SHORT).show();
                             return;
                         }
                     }
