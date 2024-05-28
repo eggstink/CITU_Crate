@@ -55,8 +55,10 @@ public class PaymentActivity extends AppCompatActivity {
         total = findViewById(R.id.total_amt);
         btnPayment = findViewById(R.id.pay_btn);
 
+        // Retrieve the amount from the intent
         amount = getIntent().getDoubleExtra("amount", 0.0);
-        subTotal.setText("Php" + amount);
+        subTotal.setText("₱" + amount);
+        total.setText("₱" + amount); // Set total amount as well
 
         btnPayment.setOnClickListener(new View.OnClickListener() {
             @Override

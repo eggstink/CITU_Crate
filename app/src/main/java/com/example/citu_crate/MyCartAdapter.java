@@ -49,28 +49,23 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
         holder.currentDate.setText(cartModel.getCurrentDate());
         holder.currentTime.setText(cartModel.getCurrentTime());
 
-        holder.addItems.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int newQuantity = Integer.parseInt(holder.quantity.getText().toString()) + 1;
-                holder.quantity.setText(String.valueOf(newQuantity));
-                updateQuantity(cartModel, newQuantity);
-            }
+        holder.addItems.setOnClickListener(v -> {
+            int newQuantity = Integer.parseInt(holder.quantity.getText().toString()) + 1;
+            holder.quantity.setText(String.valueOf(newQuantity));
+            updateQuantity(cartModel, newQuantity);
         });
 
-        holder.removeItems.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int newQuantity = Integer.parseInt(holder.quantity.getText().toString()) - 1;
-                if (newQuantity >= 0) {
-                    holder.quantity.setText(String.valueOf(newQuantity));
-                    updateQuantity(cartModel, newQuantity);
-                } else {
-                    Toast.makeText(context, "Quantity cannot be less than zero", Toast.LENGTH_SHORT).show();
-                }
+        holder.removeItems.setOnClickListener(v -> {
+            int newQuantity = Integer.parseInt(holder.quantity.getText().toString()) - 1;
+            if (newQuantity >= 0) {
+                holder.quantity.setText(String.valueOf(newQuantity));
+                updateQuantity(cartModel, newQuantity);
+            } else {
+                Toast.makeText(context, "Quantity cannot be less than zero", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 
     @Override
     public int getItemCount() {
@@ -97,39 +92,27 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
 
     private void updateQuantity(MyCartModel cartModel, int newQuantity) {
         if (newQuantity == 0) {
-            removeItem(cartModel); // Remove the item from the cart
+            removeItem(cartModel);
         } else {
             cartModel.setTotalQuantity(String.valueOf(newQuantity));
             int totalPrice = Integer.parseInt(cartModel.getProductPrice()) * newQuantity;
             cartModel.setTotalPrice(totalPrice);
 
-            // Set the document ID for the cartModel
-            String documentId = cartModel.getCartItemId(); // Assuming the document ID is already set
-            if (documentId == null) {
-                // Handle the case where documentId is null
-                // You can log an error or handle it as appropriate for your application
-                return;
-            }
-
             firestore.collection("AddToCart")
                     .document(auth.getCurrentUser().getUid())
                     .collection("User")
-                    .document(documentId)
+                    .document(cartModel.getCartItemId())
                     .update("totalQuantity", String.valueOf(newQuantity),
                             "totalPrice", totalPrice)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                updateTotalAmount();
-                            } else {
-                                Toast.makeText(context, "Failed to update quantity", Toast.LENGTH_SHORT).show();
-                            }
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            updateTotalAmount();
+                        } else {
+                            Toast.makeText(context, "Failed to update quantity", Toast.LENGTH_SHORT).show();
                         }
                     });
         }
     }
-
 
     private void removeItem(MyCartModel cartModel) {
         firestore.collection("AddToCart")
@@ -137,16 +120,13 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
                 .collection("User")
                 .document(cartModel.getCartItemId())
                 .delete()
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            cartModelList.remove(cartModel);
-                            notifyDataSetChanged();
-                            updateTotalAmount();
-                        } else {
-                            Toast.makeText(context, "Failed to remove item from cart", Toast.LENGTH_SHORT).show();
-                        }
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        cartModelList.remove(cartModel);
+                        notifyDataSetChanged();
+                        updateTotalAmount();
+                    } else {
+                        Toast.makeText(context, "Failed to remove item from cart", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

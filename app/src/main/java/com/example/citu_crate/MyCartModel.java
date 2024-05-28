@@ -10,13 +10,14 @@ public class MyCartModel {
     int totalPrice;
     String documentId;
 
-    public MyCartModel(String currentDate, String currentTime, String productName, String productPrice, String totalQuantity, int totalPrice) {
+    public MyCartModel(String currentDate, String currentTime, String documentId, String productName, String productPrice, String totalQuantity, int totalPrice) {
         this.currentDate = currentDate;
         this.currentTime = currentTime;
         this.productName = productName;
         this.productPrice = productPrice;
         this.totalQuantity = totalQuantity;
         this.totalPrice = totalPrice;
+        this.documentId = documentId;
     }
 
     public MyCartModel() {

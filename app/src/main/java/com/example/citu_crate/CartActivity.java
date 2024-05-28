@@ -84,8 +84,11 @@ public class CartActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (DocumentSnapshot doc : task.getResult().getDocuments()) {
                                 MyCartModel myCartModel = doc.toObject(MyCartModel.class);
-                                cartModelList.add(myCartModel);
-                                cartAdapter.notifyDataSetChanged();
+                                if (myCartModel != null) {
+                                    myCartModel.setDocumentId(doc.getId());
+                                    cartModelList.add(myCartModel);
+                                    cartAdapter.notifyDataSetChanged();
+                                }
                             }
                         }
                     }
@@ -99,4 +102,5 @@ public class CartActivity extends AppCompatActivity {
             overAllAmount.setText("Total Amount: ₱" + totalBill );
         }
     };
+
 }
