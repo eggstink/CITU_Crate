@@ -19,10 +19,16 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class RegistrationActivity extends AppCompatActivity {
     private FirebaseAuth auth;
+    private FirebaseFirestore firestore;
     EditText name, email, password;
     Button btnsignUp;
     @Override
@@ -37,6 +43,7 @@ public class RegistrationActivity extends AppCompatActivity {
         });
 
         auth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance();
 
 //        if(auth.getCurrentUser() != null){
 //            startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
@@ -82,14 +89,28 @@ public class RegistrationActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
 
-                                    Toast.makeText(RegistrationActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
+                                    Map<String, Double> map = new HashMap<>();
+                                    map.put("cash", 0.0);
+
+                                    firestore.collection("CurrentUser").document(auth.getCurrentUser().getUid())
+                                            .collection("Wallet").add(map).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DocumentReference> task) {
+                                                    if (task.isSuccessful()) {
+                                                        Toast.makeText(RegistrationActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                                                        startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
+                                                        finish();
+                                                    }
+                                                }
+                                            });
+
                                 }else{
                                     Toast.makeText(RegistrationActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
                                     return;
                                 }
                             }
                         });
+
 
             }
         });

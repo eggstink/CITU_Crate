@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddressActivity extends AppCompatActivity implements AddressAdapter.SelectedAddress {
-    Button addAddress;
     RecyclerView recyc;
     private List<AddressModel> addressModelList;
     private AddressAdapter addAdap;
@@ -99,17 +98,7 @@ public class AddressActivity extends AppCompatActivity implements AddressAdapter
                     // Display a toast message indicating that the user needs to add an address first
                     Toast.makeText(AddressActivity.this, "Please add an address first", Toast.LENGTH_SHORT).show();
                 } else {
-                    // Remove all items from the cart
-                    removeAllItemsFromCart();
-
-                    // Proceed with the payment process
-                    // Your payment logic goes here
-
-                    // Display a toast message indicating that the order has been received
-                    Toast.makeText(AddressActivity.this,"Order Received! Please pay in cash!",Toast.LENGTH_SHORT).show();
-
-                    // Navigate to the main activity or any other activity as needed
-                    Intent intent = new Intent(AddressActivity.this, MainActivity.class);
+                    Intent intent = new Intent(AddressActivity.this, PaymentActivity.class);
                     startActivity(intent);
                 }
             }
@@ -130,19 +119,7 @@ public class AddressActivity extends AppCompatActivity implements AddressAdapter
         mAddress = address;
     }
 
-    private void removeAllItemsFromCart() {
-        firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())
-                .collection("User")
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        List<DocumentSnapshot> documents = task.getResult().getDocuments();
-                        for (DocumentSnapshot document : documents) {
-                            document.getReference().delete();
-                        }
-                    }
-                });
-    }
+
 }
 
 
