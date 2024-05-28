@@ -1,69 +1,163 @@
 package com.example.citu_crate;
-
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.List;
 
 public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder> {
+    private Context context;
+    private List<MyCartModel> cartModelList;
+    private FirebaseFirestore firestore;
+    private FirebaseAuth auth;
 
-        Context context;
-        List<MyCartModel> list;
-        int totalAmount = 0;
-
-public MyCartAdapter(Context context, List<MyCartModel> list) {
+    public MyCartAdapter(Context context, List<MyCartModel> cartModelList) {
         this.context = context;
-        this.list = list;
-}
-
+        this.cartModelList = cartModelList;
+        firestore = FirebaseFirestore.getInstance();
+        auth = FirebaseAuth.getInstance();
+    }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.my_cart_item,parent,false));
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.my_cart_item, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.date.setText(list.get(position).getCurrentDate());
-        holder.time.setText(list.get(position).getCurrentTime());
-        holder.price.setText(list.get(position).getProductPrice() + "₱");
-        holder.name.setText(list.get(position).getProductName());
-        holder.totalPrice.setText(String.valueOf(list.get(position).getTotalPrice()));
-        holder.totalQuan.setText(list.get(position).getTotalQuantity());
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        MyCartModel cartModel = cartModelList.get(position);
+        holder.productName.setText(cartModel.getProductName());
+        holder.productPrice.setText("₱" + cartModel.getProductPrice());
+        holder.quantity.setText(cartModel.getTotalQuantity());
+        holder.totalPrice.setText("₱" + (Integer.parseInt(cartModel.getProductPrice()) * Integer.parseInt(cartModel.getTotalQuantity())));
+        holder.currentDate.setText(cartModel.getCurrentDate());
+        holder.currentTime.setText(cartModel.getCurrentTime());
 
-        totalAmount = totalAmount + list.get(position).getTotalPrice();
-        Intent intent = new Intent("MyTotalAmount");
-        intent.putExtra("totalAmount",totalAmount);
+        holder.addItems.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int newQuantity = Integer.parseInt(holder.quantity.getText().toString()) + 1;
+                holder.quantity.setText(String.valueOf(newQuantity));
+                updateQuantity(cartModel, newQuantity);
+            }
+        });
 
-        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-        }
+        holder.removeItems.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int newQuantity = Integer.parseInt(holder.quantity.getText().toString()) - 1;
+                if (newQuantity >= 0) {
+                    holder.quantity.setText(String.valueOf(newQuantity));
+                    updateQuantity(cartModel, newQuantity);
+                } else {
+                    Toast.makeText(context, "Quantity cannot be less than zero", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 
+    @Override
+    public int getItemCount() {
+        return cartModelList.size();
+    }
 
-@Override
-public int getItemCount() {
-        return list.size();
-        }
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView productName, productPrice, quantity, totalPrice, currentDate, currentTime;
+        ImageView addItems, removeItems;
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView name, price, date, time, totalQuan, totalPrice;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            name  =  itemView.findViewById(R.id.product_name);
-            price = itemView.findViewById(R.id.product_price);
-            date = itemView.findViewById(R.id.current_date);
-            time = itemView.findViewById(R.id.current_time);
-            totalQuan = itemView.findViewById(R.id.total_quantity);
+
+            productName = itemView.findViewById(R.id.product_name);
+            productPrice = itemView.findViewById(R.id.product_price);
+            quantity = itemView.findViewById(R.id.quantity);
             totalPrice = itemView.findViewById(R.id.total_price);
+            currentDate = itemView.findViewById(R.id.current_date);
+            currentTime = itemView.findViewById(R.id.current_time);
+            addItems = itemView.findViewById(R.id.add_item);
+            removeItems = itemView.findViewById(R.id.remove_item);
         }
+    }
+
+    private void updateQuantity(MyCartModel cartModel, int newQuantity) {
+        if (newQuantity == 0) {
+            removeItem(cartModel); // Remove the item from the cart
+        } else {
+            cartModel.setTotalQuantity(String.valueOf(newQuantity));
+            int totalPrice = Integer.parseInt(cartModel.getProductPrice()) * newQuantity;
+            cartModel.setTotalPrice(totalPrice);
+
+            // Set the document ID for the cartModel
+            String documentId = cartModel.getCartItemId(); // Assuming the document ID is already set
+            if (documentId == null) {
+                // Handle the case where documentId is null
+                // You can log an error or handle it as appropriate for your application
+                return;
+            }
+
+            firestore.collection("AddToCart")
+                    .document(auth.getCurrentUser().getUid())
+                    .collection("User")
+                    .document(documentId)
+                    .update("totalQuantity", String.valueOf(newQuantity),
+                            "totalPrice", totalPrice)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                updateTotalAmount();
+                            } else {
+                                Toast.makeText(context, "Failed to update quantity", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+        }
+    }
+
+
+    private void removeItem(MyCartModel cartModel) {
+        firestore.collection("AddToCart")
+                .document(auth.getCurrentUser().getUid())
+                .collection("User")
+                .document(cartModel.getCartItemId())
+                .delete()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            cartModelList.remove(cartModel);
+                            notifyDataSetChanged();
+                            updateTotalAmount();
+                        } else {
+                            Toast.makeText(context, "Failed to remove item from cart", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    private void updateTotalAmount() {
+        int totalAmount = 0;
+        for (MyCartModel cartModel : cartModelList) {
+            totalAmount += cartModel.getTotalPrice();
+        }
+        Intent intent = new Intent("MyTotalAmount");
+        intent.putExtra("totalAmount", totalAmount);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 }

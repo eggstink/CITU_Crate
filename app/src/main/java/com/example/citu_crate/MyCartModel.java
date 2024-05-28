@@ -8,6 +8,7 @@ public class MyCartModel {
     String productPrice;
     String totalQuantity;
     int totalPrice;
+    String documentId;
 
     public MyCartModel(String currentDate, String currentTime, String productName, String productPrice, String totalQuantity, int totalPrice) {
         this.currentDate = currentDate;
@@ -68,5 +69,12 @@ public class MyCartModel {
 
     public void setTotalPrice(int totalPrice) {
         this.totalPrice = totalPrice;
+    }
+    public String getCartItemId() {
+        return documentId;
+    }
+
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
     }
 }

@@ -60,21 +60,21 @@ public class HomeFragment extends Fragment {
         catShowAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(),ShowAllActivity.class);
+                Intent intent = new Intent(getContext(),ShowAllActivity2.class);
                 startActivity(intent);
             }
         });
         newProductShowAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(),ShowAllActivity.class);
+                Intent intent = new Intent(getContext(),ShowAllActivity2.class);
                 startActivity(intent);
             }
         });
         popularShowAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(),ShowAllActivity.class);
+                Intent intent = new Intent(getContext(),ShowAllActivity2.class);
                 startActivity(intent);
             }
         });

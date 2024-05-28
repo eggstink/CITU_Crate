@@ -28,7 +28,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
-
 dependencies {
 
     implementation(libs.appcompat)
@@ -42,6 +41,8 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
 
     implementation("com.github.bumptech.glide:glide:4.12.0")
+    implementation("com.paypal.android:paypal-native-payments:1.4.0")
+    implementation ("com.paypal.android:payment-buttons:1.4.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
 
 }

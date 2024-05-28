@@ -37,23 +37,26 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
         holder.radiobutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for(AddressModel address : addressModelList){
-                    address.setSelected(false);
+                int adapterPosition = holder.getAdapterPosition();
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    for (AddressModel address : addressModelList) {
+                        address.setSelected(false);
+                    }
+                    addressModelList.get(adapterPosition).setSelected(true);
+                    if (selectedrbtn != null) {
+                        selectedrbtn.setChecked(false);
+                    }
+                    selectedrbtn = (RadioButton) v;
+                    selectedrbtn.setChecked(true);
+                    selectedAddress.setAddress(addressModelList.get(adapterPosition).getUserAddress());
                 }
-                addressModelList.get(holder.getOldPosition()).setSelected(true);
-                if(selectedrbtn != null){
-                    selectedrbtn.setSelected(false);
-                }
-                selectedrbtn = (RadioButton) v;
-                selectedrbtn.setChecked(true);
-                selectedAddress.setAddress(addressModelList.get(holder.getAdapterPosition()).getUserAddress());
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return addressModelList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

@@ -12,7 +12,7 @@
         android:id="@+id/address_add"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="US California"
+        android:text="CIT-U"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

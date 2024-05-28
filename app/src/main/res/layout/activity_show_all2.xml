@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShowAllActivity">
+    tools:context=".ShowAllActivity2">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/show_all_toolbar"
@@ -17,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="CIT-U Crate"
+        app:title="All Items"
         app:titleTextColor="@color/white" />
 
     <androidx.recyclerview.widget.RecyclerView

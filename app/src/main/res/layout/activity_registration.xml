@@ -12,22 +12,21 @@
         android:id="@+id/tvsignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
         android:fontFamily="@font/robotoslab_black"
-        android:text="Register"
+        android:text="Register Now!"
         android:textColor="@color/gold"
         android:textSize="40sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="70dp"
         android:background="@drawable/edit_text_bg"
         android:drawableLeft="@drawable/user_icon"
         android:drawablePadding="10dp"
@@ -42,7 +41,7 @@
         android:id="@+id/email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/edit_text_bg"
         android:drawableLeft="@drawable/email_icon"
         android:drawablePadding="10dp"
@@ -57,7 +56,7 @@
         android:id="@+id/password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/edit_text_bg"
         android:drawableLeft="@drawable/icons8_password_30"
         android:drawablePadding="10dp"
@@ -73,6 +72,7 @@
         android:id="@+id/btnSignup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
         android:backgroundTint="@color/gold"
         android:fontFamily="@font/robotoslab_black"
         android:onClick="signup"
@@ -81,39 +81,39 @@
         android:textAllCaps="false"
         android:textColor="@color/black"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias=".2"
         app:layout_constraintWidth_percent=".4" />
 
-    <TextView
-        android:id="@+id/tvNoAcc"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Already Have An Account?"
-        android:textSize="17sp"
-        android:textColor="@color/white"
-        android:fontFamily="@font/robotoslab_black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/password"
-        app:layout_constraintHorizontal_bias=".3"
-        app:layout_constraintStart_toStartOf="@+id/password"
-        app:layout_constraintTop_toBottomOf="@+id/btnSignup"
-        app:layout_constraintVertical_bias=".2" />
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSignup">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/robotoslab_black"
-        android:onClick="signin"
-        android:text="Log In"
-        android:textColor="@color/gold"
-        android:textSize="19sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/tvNoAcc"
-        app:layout_constraintStart_toEndOf="@+id/tvNoAcc"
-        app:layout_constraintTop_toTopOf="@id/tvNoAcc" />
+        <TextView
+            android:id="@+id/tvNoAcc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/robotoslab_black"
+            android:text="Already Have An Account?"
+            android:paddingEnd="10dp"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/robotoslab_black"
+            android:onClick="signin"
+            android:text="Log In"
+            android:textColor="@color/gold"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

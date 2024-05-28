@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ public class CartActivity extends AppCompatActivity {
     MyCartAdapter cartAdapter;
     private FirebaseAuth auth;
     private FirebaseFirestore firestore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +51,6 @@ public class CartActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
-
 
         toolbar = findViewById(R.id.my_cart_toolbar);
         setSupportActionBar(toolbar);
@@ -65,6 +66,17 @@ public class CartActivity extends AppCompatActivity {
         recyc.setAdapter(cartAdapter);
         btnCheckout = findViewById(R.id.buy_now);
 
+        loadCartItems();
+
+        btnCheckout.setOnClickListener(v -> {
+            Toast.makeText(CartActivity.this, "Order Received", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(CartActivity.this, AddressActivity.class);
+            intent.putExtra("fromCart", true);
+            startActivity(intent);
+        });
+    }
+
+    private void loadCartItems() {
         firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())
                 .collection("User").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -78,20 +90,13 @@ public class CartActivity extends AppCompatActivity {
                         }
                     }
                 });
-        btnCheckout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(CartActivity.this, "Order Received", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(CartActivity.this, MainActivity.class));
-                finish();
-            }
-        });
     }
+
     public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            int totalBill = intent.getIntExtra("totalAmount",0);
-            overAllAmount.setText("Total Amount: " + totalBill + "₱");
+            int totalBill = intent.getIntExtra("totalAmount", 0);
+            overAllAmount.setText("Total Amount: ₱" + totalBill );
         }
     };
 }

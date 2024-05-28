@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CITU_Crate</string>
+    <string name="app_name">CIT-U Crate</string>
     <string name="first_slide">Choose Your Products</string>
     <string name="second_slide">Fast Delivery</string>
     <string name="third_slide">Good Service</string>
@@ -7,4 +7,9 @@
     <string name="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="password">Password</string>
+    <string name="email_address">Email Address</string>
+    <string name="log_in">Log In</string>
+    <string name="don_t_have_an_account">Don\'t Have An Account?</string>
+    <string name="sign_up">Sign Up</string>
 </resources>

@@ -25,7 +25,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddressActivity extends AppCompatActivity implements AddressAdapter.SelectedAddress{
+public class AddressActivity extends AppCompatActivity implements AddressAdapter.SelectedAddress {
     Button addAddress;
     RecyclerView recyc;
     private List<AddressModel> addressModelList;
@@ -47,29 +47,39 @@ public class AddressActivity extends AppCompatActivity implements AddressAdapter
             return insets;
         });
 
+        // Initialize Toolbar
         toolbar = findViewById(R.id.address_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Object obj = getIntent().getSerializableExtra("item");
-
-
+        // Initialize Firebase instances
         auth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
 
+        // Initialize RecyclerView and Adapter
         recyc = findViewById(R.id.address_recycler);
+        recyc.setLayoutManager(new LinearLayoutManager(this));
+        addressModelList = new ArrayList<>();
+        addAdap = new AddressAdapter(this, addressModelList, this);
+        recyc.setAdapter(addAdap);
+
+        // Initialize Buttons
         btnPayment = findViewById(R.id.payment_btn);
         btnaddAddress = findViewById(R.id.add_address_btn);
-        recyc.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        addressModelList = new ArrayList<>();
-        addAdap = new AddressAdapter(getApplicationContext(),addressModelList,this);
-        recyc.setAdapter(addAdap);
+
+        // Check if the previous activity was CartActivity
+        boolean fromCart = getIntent().getBooleanExtra("fromCart", false);
+        if (!fromCart) {
+            btnPayment.setVisibility(View.GONE);
+        }
+
+        // Fetch addresses from Firestore
         firestore.collection("CurrentUser").document(auth.getCurrentUser().getUid())
                 .collection("Address").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
-                            for(DocumentSnapshot doc : task.getResult().getDocuments()){
+                        if (task.isSuccessful()) {
+                            for (DocumentSnapshot doc : task.getResult().getDocuments()) {
                                 AddressModel addressModel = doc.toObject(AddressModel.class);
                                 addressModelList.add(addressModel);
                                 addAdap.notifyDataSetChanged();
@@ -77,33 +87,34 @@ public class AddressActivity extends AppCompatActivity implements AddressAdapter
                         }
                     }
                 });
+
+        // Set click listener for payment button
         btnPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                double amount  = 0.0;
-                if(obj instanceof NewProductsModel){
-                    NewProductsModel newProductsModel = (NewProductsModel)  obj;
+                double amount = 0.0;
+                Object obj = getIntent().getSerializableExtra("item");
+                if (obj instanceof NewProductsModel) {
+                    NewProductsModel newProductsModel = (NewProductsModel) obj;
                     amount = newProductsModel.getPrice();
-                }
-                if(obj instanceof PoplularProductModel){
-                    PoplularProductModel popularProductsModel = (PoplularProductModel)  obj;
+                } else if (obj instanceof PoplularProductModel) {
+                    PoplularProductModel popularProductsModel = (PoplularProductModel) obj;
                     amount = popularProductsModel.getPrice();
-                }
-                if(obj instanceof ShowAllModel){
-                    ShowAllModel showAllModel = (ShowAllModel)  obj;
+                } else if (obj instanceof ShowAllModel) {
+                    ShowAllModel showAllModel = (ShowAllModel) obj;
                     amount = showAllModel.getPrice();
                 }
                 Intent intent = new Intent(AddressActivity.this, PaymentActivity.class);
-                intent.putExtra("amount",amount);
+                intent.putExtra("amount", amount);
                 startActivity(intent);
-
             }
         });
-        addAddress.setOnClickListener(new View.OnClickListener() {
+
+        // Set click listener for add address button
+        btnaddAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AddressActivity.this,AddAddressActivity.class));
+                startActivity(new Intent(AddressActivity.this, AddAddressActivity.class));
             }
         });
     }
@@ -113,3 +124,4 @@ public class AddressActivity extends AppCompatActivity implements AddressAdapter
         mAddress = address;
     }
 }
+

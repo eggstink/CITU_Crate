@@ -9,13 +9,9 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
@@ -57,10 +53,12 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         if(id == R.id.menu_logout){
             auth.signOut();
-            startActivity(new Intent(MainActivity.this, LogIn.class));
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
             finish();
         } else if (id == R.id.menu_mycart) {
             startActivity(new Intent(MainActivity.this, CartActivity.class));
+        } else if(id == R.id.menu_myaddress){
+            startActivity(new Intent(MainActivity.this, AddressActivity.class));
         }
         return true;
     }

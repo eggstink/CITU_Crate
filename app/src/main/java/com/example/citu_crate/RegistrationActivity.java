@@ -39,7 +39,7 @@ public class RegistrationActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
         if(auth.getCurrentUser() != null){
-            startActivity(new Intent(RegistrationActivity.this, LogIn.class));
+            startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
             finish();
         }
 
@@ -80,7 +80,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(RegistrationActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(RegistrationActivity.this, LogIn.class));
+                                    startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
                                 }else{
                                     Toast.makeText(RegistrationActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
                                     return;
@@ -93,6 +93,6 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     public void signin(View view){
-        startActivity(new Intent(RegistrationActivity.this, LogIn.class));
+        startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
     }
 }
