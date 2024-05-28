@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -89,26 +90,34 @@ public class AddressActivity extends AppCompatActivity implements AddressAdapter
                 });
 
         // Set click listener for payment button
+        // Set click listener for payment button
         btnPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double amount = 0.0;
-                Object obj = getIntent().getSerializableExtra("item");
-                if (obj instanceof NewProductsModel) {
-                    NewProductsModel newProductsModel = (NewProductsModel) obj;
-                    amount = newProductsModel.getPrice();
-                } else if (obj instanceof PoplularProductModel) {
-                    PoplularProductModel popularProductsModel = (PoplularProductModel) obj;
-                    amount = popularProductsModel.getPrice();
-                } else if (obj instanceof ShowAllModel) {
-                    ShowAllModel showAllModel = (ShowAllModel) obj;
-                    amount = showAllModel.getPrice();
+                // Check if user has selected an address
+                if (mAddress.isEmpty()) {
+                    // Display a toast message indicating that the user needs to add an address first
+                    Toast.makeText(AddressActivity.this, "Please add an address first", Toast.LENGTH_SHORT).show();
+                } else {
+                    double amount = 0.0;
+                    Object obj = getIntent().getSerializableExtra("item");
+                    if (obj instanceof NewProductsModel) {
+                        NewProductsModel newProductsModel = (NewProductsModel) obj;
+                        amount = newProductsModel.getPrice();
+                    } else if (obj instanceof PoplularProductModel) {
+                        PoplularProductModel popularProductsModel = (PoplularProductModel) obj;
+                        amount = popularProductsModel.getPrice();
+                    } else if (obj instanceof ShowAllModel) {
+                        ShowAllModel showAllModel = (ShowAllModel) obj;
+                        amount = showAllModel.getPrice();
+                    }
+                    Intent intent = new Intent(AddressActivity.this, PaymentActivity.class);
+                    intent.putExtra("amount", amount);
+                    startActivity(intent);
                 }
-                Intent intent = new Intent(AddressActivity.this, PaymentActivity.class);
-                intent.putExtra("amount", amount);
-                startActivity(intent);
             }
         });
+
 
         // Set click listener for add address button
         btnaddAddress.setOnClickListener(new View.OnClickListener() {

@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     Button signIn;
     private FirebaseAuth auth;
     EditText email, password;
-    TextView signUp;
+    TextView signUpRegister;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
 
         signIn = (Button) findViewById(R.id.btnSignin);
-        signUp = (TextView) findViewById(R.id.signUpNoAcc);
+        signUpRegister = (TextView) findViewById(R.id.signUpNoAcc);
 
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
         });
 
-        signUp.setOnClickListener(new View.OnClickListener() {
+        signUpRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent toRegistrationIntent = new Intent(LoginActivity.this, RegistrationActivity.class);
