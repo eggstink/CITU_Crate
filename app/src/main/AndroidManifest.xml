@@ -14,6 +14,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CITU_Crate"
         tools:targetApi="31">
+
+        <activity
+            android:name=".SplashScreen"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".TopUpActivity"
             android:exported="false" />
@@ -48,13 +58,8 @@
             android:name=".ShowAllActivity"
             android:exported="false" />
         <activity
-            android:name=".SplashScreen"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:name=".ShowAllActivity2"
+            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"

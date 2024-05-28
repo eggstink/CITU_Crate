@@ -5,9 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,9 +13,6 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -69,10 +64,14 @@ public class CartActivity extends AppCompatActivity {
         loadCartItems();
 
         btnCheckout.setOnClickListener(v -> {
-            Toast.makeText(CartActivity.this, "Order Received", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(CartActivity.this, AddressActivity.class);
-            intent.putExtra("fromCart", true);
-            startActivity(intent);
+            if (cartModelList.isEmpty()) {
+                Toast.makeText(CartActivity.this, "Your cart is empty, please shop first", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(CartActivity.this, MainActivity.class));
+            } else {
+                Intent intent = new Intent(CartActivity.this, AddressActivity.class);
+                intent.putExtra("fromCart", true);
+                startActivity(intent);
+            }
         });
     }
 
@@ -82,14 +81,22 @@ public class CartActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+                            cartModelList.clear();
+                            int totalAmount = 0;
                             for (DocumentSnapshot doc : task.getResult().getDocuments()) {
                                 MyCartModel myCartModel = doc.toObject(MyCartModel.class);
                                 if (myCartModel != null) {
                                     myCartModel.setDocumentId(doc.getId());
                                     cartModelList.add(myCartModel);
-                                    cartAdapter.notifyDataSetChanged();
+
+                                    int price = Integer.parseInt(myCartModel.getProductPrice());
+                                    int quantity = Integer.parseInt(myCartModel.getTotalQuantity());
+                                    totalAmount += price * quantity;
                                 }
                             }
+                            overAllTotalAmount = totalAmount;
+                            overAllAmount.setText("Total Amount: ₱" + overAllTotalAmount);
+                            cartAdapter.notifyDataSetChanged();
                         }
                     }
                 });
@@ -99,8 +106,13 @@ public class CartActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             int totalBill = intent.getIntExtra("totalAmount", 0);
-            overAllAmount.setText("Total Amount: ₱" + totalBill );
+            overAllAmount.setText("Total Amount: ₱" + totalBill);
         }
     };
 
+    @Override
+    protected void onDestroy() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+        super.onDestroy();
+    }
 }

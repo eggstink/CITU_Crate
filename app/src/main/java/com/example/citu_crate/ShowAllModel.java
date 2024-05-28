@@ -61,7 +61,7 @@ public class ShowAllModel implements Serializable {
         this.type = type;
     }
 
-    public ShowAllModel(String description, String name, String rating, int price, String img_url) {
+    public ShowAllModel(String description, String name, String rating, int price, String img_url,String type) {
         this.description = description;
         this.name = name;
         this.rating = rating;

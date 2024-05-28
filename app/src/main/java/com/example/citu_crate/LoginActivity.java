@@ -88,12 +88,16 @@ public class LoginActivity extends AppCompatActivity {
                 }
         });
 
-        signUpRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent toRegistrationIntent = new Intent(LoginActivity.this, RegistrationActivity.class);
-                startActivity(toRegistrationIntent);
-            }
-        });
+//        signUpRegister.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+    }
+
+    public void signUp(View view) {
+        Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+        startActivity(intent);
     }
 }

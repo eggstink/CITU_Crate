@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkmaroon"
+    android:longClickable="true"
     tools:context=".LoginActivity">
 
     <TextView
@@ -84,7 +85,7 @@
         app:layout_constraintWidth_percent=".4" />
 
     <LinearLayout
-        android:id="@+id/tosignup"
+        android:id="@+id/secret"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -101,12 +102,15 @@
             android:paddingEnd="10dp"
             android:text="@string/don_t_have_an_account"
             android:textColor="@color/white"
-            android:textSize="17sp"/>
-z
+            android:textSize="17sp" />
+
         <TextView
             android:id="@+id/signUpNoAcc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="true"
+            android:onClick="signUp"
+            android:focusable="false"
             android:fontFamily="@font/robotoslab_black"
             android:text="@string/sign_up"
             android:textColor="@color/gold"

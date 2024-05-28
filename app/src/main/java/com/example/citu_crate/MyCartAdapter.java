@@ -45,7 +45,6 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
         holder.productName.setText(cartModel.getProductName());
         holder.productPrice.setText("₱" + cartModel.getProductPrice());
         holder.quantity.setText(cartModel.getTotalQuantity());
-        holder.totalPrice.setText("₱" + (Integer.parseInt(cartModel.getProductPrice()) * Integer.parseInt(cartModel.getTotalQuantity())));
         holder.currentDate.setText(cartModel.getCurrentDate());
         holder.currentTime.setText(cartModel.getCurrentTime());
 
@@ -73,7 +72,7 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView productName, productPrice, quantity, totalPrice, currentDate, currentTime;
+        TextView productName, productPrice, quantity, currentDate, currentTime;
         ImageView addItems, removeItems;
 
         public ViewHolder(@NonNull View itemView) {
@@ -82,7 +81,6 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
             productName = itemView.findViewById(R.id.product_name);
             productPrice = itemView.findViewById(R.id.product_price);
             quantity = itemView.findViewById(R.id.quantity);
-            totalPrice = itemView.findViewById(R.id.total_price);
             currentDate = itemView.findViewById(R.id.current_date);
             currentTime = itemView.findViewById(R.id.current_time);
             addItems = itemView.findViewById(R.id.add_item);

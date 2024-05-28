@@ -38,15 +38,17 @@ public class RegistrationActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-        if(auth.getCurrentUser() != null){
-            startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
-            finish();
-        }
+//        if(auth.getCurrentUser() != null){
+//            startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
+//            finish();
+//        }
 
         name = findViewById(R.id.name);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         btnsignUp = findViewById(R.id.btnSignup);
+
+
 
         btnsignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +81,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+
                                     Toast.makeText(RegistrationActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
                                 }else{
@@ -95,4 +98,6 @@ public class RegistrationActivity extends AppCompatActivity {
     public void signin(View view){
         startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
     }
+
+
 }

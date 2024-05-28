@@ -20,8 +20,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     private List<CategoryModel> list;
 
     public CategoryAdapter(Context context, List<CategoryModel>list){
-            this.context=context;
-            this.list = list;
+        this.context=context;
+        this.list = list;
     }
     @NonNull
     @Override

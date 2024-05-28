@@ -63,38 +63,38 @@ public class PaymentActivity extends AppCompatActivity {
         btnPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Get the user's cash from the database
-                db.collection("Users").document(mAuth.getCurrentUser().getUid())
-                        .get()
-                        .addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                DocumentSnapshot document = task.getResult();
-                                if (document.exists()) {
-                                    double cash = document.getDouble("cash");
-                                    // Check if user has enough money
-                                    if (cash >= amount) {
+//                // Get the user's cash from the database
+//                db.collection("Users").document(mAuth.getCurrentUser().getUid())
+//                        .get()
+//                        .addOnCompleteListener(task -> {
+//                            if (task.isSuccessful()) {
+//                                DocumentSnapshot document = task.getResult();
+//                                if (document.exists()) {
+//                                    double cash = document.getDouble("cash");
+//                                    // Check if user has enough money
+//                                    if (cash >= amount) {
                                         // Subtract the amount from the user's cash
-                                        double newCash = cash - amount;
-                                        db.collection("Users").document(mAuth.getCurrentUser().getUid())
-                                                .update("cash", newCash)
-                                                .addOnCompleteListener(task1 -> {
-                                                    if (task1.isSuccessful()) {
+//                                        double newCash = cash - amount;
+//                                        db.collection("Users").document(mAuth.getCurrentUser().getUid())
+//                                                .update("cash", newCash)
+//                                                .addOnCompleteListener(task1 -> {
+//                                                    if (task1.isSuccessful()) {
                                                         Toast.makeText(PaymentActivity.this, "Payment successful", Toast.LENGTH_SHORT).show();
                                                         // Remove all items from the cart
                                                         removeAllItemsFromCart();
                                                         // Navigate to the next activity
                                                         startActivity(new Intent(PaymentActivity.this, HomeFragment.class));
                                                         finish();
-                                                    } else {
-                                                        Toast.makeText(PaymentActivity.this, "Error occurred, please try again", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                });
-                                    } else {
-                                        Toast.makeText(PaymentActivity.this, "Insufficient funds", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            }
-                        });
+//                                                    } else {
+//                                                        Toast.makeText(PaymentActivity.this, "Error occurred, please try again", Toast.LENGTH_SHORT).show();
+//                                                    }
+//                                                });
+//                                    } else {
+//                                        Toast.makeText(PaymentActivity.this, "Insufficient funds", Toast.LENGTH_SHORT).show();
+//                                    }
+//                                }
+//                            }
+//                        });
             }
         });
     }

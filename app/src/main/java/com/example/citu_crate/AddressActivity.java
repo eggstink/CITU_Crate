@@ -99,20 +99,17 @@ public class AddressActivity extends AppCompatActivity implements AddressAdapter
                     // Display a toast message indicating that the user needs to add an address first
                     Toast.makeText(AddressActivity.this, "Please add an address first", Toast.LENGTH_SHORT).show();
                 } else {
-                    double amount = 0.0;
-                    Object obj = getIntent().getSerializableExtra("item");
-                    if (obj instanceof NewProductsModel) {
-                        NewProductsModel newProductsModel = (NewProductsModel) obj;
-                        amount = newProductsModel.getPrice();
-                    } else if (obj instanceof PoplularProductModel) {
-                        PoplularProductModel popularProductsModel = (PoplularProductModel) obj;
-                        amount = popularProductsModel.getPrice();
-                    } else if (obj instanceof ShowAllModel) {
-                        ShowAllModel showAllModel = (ShowAllModel) obj;
-                        amount = showAllModel.getPrice();
-                    }
-                    Intent intent = new Intent(AddressActivity.this, PaymentActivity.class);
-                    intent.putExtra("amount", amount);
+                    // Remove all items from the cart
+                    removeAllItemsFromCart();
+
+                    // Proceed with the payment process
+                    // Your payment logic goes here
+
+                    // Display a toast message indicating that the order has been received
+                    Toast.makeText(AddressActivity.this,"Order Received! Please pay in cash!",Toast.LENGTH_SHORT).show();
+
+                    // Navigate to the main activity or any other activity as needed
+                    Intent intent = new Intent(AddressActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
             }
@@ -132,5 +129,20 @@ public class AddressActivity extends AppCompatActivity implements AddressAdapter
     public void setAddress(String address) {
         mAddress = address;
     }
+
+    private void removeAllItemsFromCart() {
+        firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())
+                .collection("User")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        List<DocumentSnapshot> documents = task.getResult().getDocuments();
+                        for (DocumentSnapshot document : documents) {
+                            document.getReference().delete();
+                        }
+                    }
+                });
+    }
 }
+
 
