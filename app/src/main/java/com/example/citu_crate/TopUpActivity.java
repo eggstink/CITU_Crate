@@ -1,10 +1,12 @@
 package com.example.citu_crate;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -17,7 +19,7 @@ public class TopUpActivity extends AppCompatActivity {
     String[] payment = {"GCash", "Maya", "PayPal", "7-Eleven"};
     AutoCompleteTextView paymentDropDown;
     ArrayAdapter<String> adapterPayments;
-
+    Button proceed;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,5 +42,9 @@ public class TopUpActivity extends AppCompatActivity {
 //                Toast.makeText(TopUpActivity.this, "Item:")
 //            }
 //        });
+
+        Intent proceed = new Intent(TopUpActivity.this, MainActivity.class);
+        startActivity(proceed);
+        finish();
     }
 }
