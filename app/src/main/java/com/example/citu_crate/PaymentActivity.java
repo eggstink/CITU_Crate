@@ -21,9 +21,6 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.paypal.android.corepayments.PayPalSDKError;
-import com.paypal.android.paypalnativepayments.PayPalNativeCheckoutListener;
-import com.paypal.android.paypalnativepayments.PayPalNativeCheckoutResult;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 

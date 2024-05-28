@@ -36,6 +36,9 @@ public class WalletActivity extends AppCompatActivity {
         firestore = FirebaseFirestore.getInstance();
         toTopUp = findViewById(R.id.btnToTopUp);
 
+        Intent topUp = new Intent(WalletActivity.this, TopUpActivity.class);
+        startActivity(topUp);
+        finish();
 
         firestore.collection("users").document("yourUserId")
                 .get()

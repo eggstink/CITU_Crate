@@ -43,41 +43,6 @@
                 app:srcCompat="@drawable/cratebanner3" />
         </ViewFlipper>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="9dp"
-            android:orientation="horizontal"
-            android:weightSum="2">
-        <ViewFlipper
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:autoStart="true"
-            android:flipInterval="2000"
-            android:inAnimation="@anim/slide_in_right"
-            android:outAnimation="@anim/slide_out_left"
-            app:layout_constraintTop_toBottomOf="@+id/home_toolbar">
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:cropToPadding="true"
-                app:srcCompat="@drawable/cratebanner2" />
-
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/cratebanner1" />
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/cratebanner3" />
-        </ViewFlipper>
-
         <TextView
             android:id="@+id/category_see_all"
             android:layout_width="wrap_content"
@@ -103,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/amethysta"
+                android:fontFamily="@font/robotoslab_black"
                 android:text="Category"
                 android:textSize="21sp"
                 android:textStyle="bold" />
