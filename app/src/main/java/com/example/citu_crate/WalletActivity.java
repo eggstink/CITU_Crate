@@ -22,6 +22,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.Map;
 
 public class WalletActivity extends AppCompatActivity {
     TextView cashAmount;
@@ -55,34 +58,37 @@ public class WalletActivity extends AppCompatActivity {
 
         FirebaseUser currentUser = auth.getCurrentUser();
 
-        if (currentUser != null) {
-            String userId = currentUser.getUid();
-            DocumentReference docRef = firestore.collection("CurrentUser").document(userId)
-                    .collection("Wallet").document(currentUser+"_Money");
+        firestore.collection("CurrentUser")
+                .document(auth.getCurrentUser().getUid())
+                .collection("Wallet")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            // Initialize cashAmount variable
+                            double cash = 0.0;
 
-            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if (document != null && document.exists()) {
-                            Long cash = document.getLong("cash");
-                            if (cash != null) {
-                                cashAmount.setText(String.valueOf(cash));
-                            } else {
-                                cashAmount.setText("N/A");
+                            // Iterate through the documents in the result
+                            for (DocumentSnapshot document : task.getResult()) {
+                                // Get the cash amount from the document
+                                Double dbcash = document.getDouble("cash");
+                                if (dbcash != null) {
+                                    // Update cashAmount if the value is not null
+                                    cash = dbcash;
+                                    break;
+                                }
                             }
+
+                            // Set the cash amount in your TextView
+                            cashAmount.setText(String.valueOf(cash));
                         } else {
-                            Log.d("TAG", "No such document");
+                            // Handle Firestore query failure
+                            Log.e("WalletActivity", "Error getting documents", task.getException());
                         }
-                    } else {
-                        Log.w("TAG", "Error getting document", task.getException());
                     }
-                }
-            });
-        } else {
-            cashAmount.setText("N/A");
-        }
+                });
+
     }
 
 }

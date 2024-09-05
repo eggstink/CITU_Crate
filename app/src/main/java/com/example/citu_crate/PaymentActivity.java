@@ -18,9 +18,13 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
@@ -56,45 +60,76 @@ public class PaymentActivity extends AppCompatActivity {
         btnPayment = findViewById(R.id.pay_btn);
 
         // Retrieve the amount from the intent
-        amount = getIntent().getDoubleExtra("amount", 0.0);
-        subTotal.setText("₱" + amount);
-        total.setText("₱" + amount); // Set total amount as well
+        db.collection("AddToCart").document(mAuth.getCurrentUser().getUid())
+                .collection("User")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (DocumentSnapshot document : task.getResult().getDocuments()) {
+                            double price = document.getDouble("totalPrice");
+                            amount += price;
+                        }
+                        // Set the subtotal and total amount
+                        subTotal.setText("₱" + amount);
+                        amount+=10;
+                        total.setText("₱" + amount);
 
+                    } else {
+                        Log.e(TAG, "Error getting documents: ", task.getException());
+                    }
+                });
         btnPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                // Get the user's cash from the database
-//                db.collection("Users").document(mAuth.getCurrentUser().getUid())
-//                        .get()
-//                        .addOnCompleteListener(task -> {
-//                            if (task.isSuccessful()) {
-//                                DocumentSnapshot document = task.getResult();
-//                                if (document.exists()) {
-//                                    double cash = document.getDouble("cash");
-//                                    // Check if user has enough money
-//                                    if (cash >= amount) {
-                                        // Subtract the amount from the user's cash
-//                                        double newCash = cash - amount;
-//                                        db.collection("Users").document(mAuth.getCurrentUser().getUid())
-//                                                .update("cash", newCash)
-//                                                .addOnCompleteListener(task1 -> {
-//                                                    if (task1.isSuccessful()) {
-                                                        Toast.makeText(PaymentActivity.this, "Payment successful", Toast.LENGTH_SHORT).show();
-                                                        // Remove all items from the cart
-                                                        removeAllItemsFromCart();
-                                                        // Navigate to the next activity
-                                                        startActivity(new Intent(PaymentActivity.this, HomeFragment.class));
-                                                        finish();
-//                                                    } else {
-//                                                        Toast.makeText(PaymentActivity.this, "Error occurred, please try again", Toast.LENGTH_SHORT).show();
-//                                                    }
-//                                                });
-//                                    } else {
-//                                        Toast.makeText(PaymentActivity.this, "Insufficient funds", Toast.LENGTH_SHORT).show();
-//                                    }
-//                                }
-//                            }
-//                        });
+                // Get the user's wallet document
+                db.collection("CurrentUser")
+                        .document(mAuth.getCurrentUser().getUid())
+                        .collection("Wallet")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    // Check if the wallet document exists
+                                    if (!task.getResult().isEmpty()) {
+                                        DocumentSnapshot walletDocument = task.getResult().getDocuments().get(0); // Assuming there's only one wallet document per user
+                                        double cash = walletDocument.getDouble("cash");
+
+                                        // Check if the user has enough money
+                                        if (cash >= amount) {
+                                            // Subtract the amount from the user's cash
+                                            double newCash = cash - amount;
+
+                                            // Update the cash field in the user's wallet document
+                                            walletDocument.getReference().update("cash", newCash)
+                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> updateTask) {
+                                                            if (updateTask.isSuccessful()) {
+                                                                Toast.makeText(PaymentActivity.this, "Payment successful", Toast.LENGTH_SHORT).show();
+                                                                removeAllItemsFromCart();
+                                                                startActivity(new Intent(PaymentActivity.this, MainActivity.class));
+                                                                finish();
+                                                            } else {
+                                                                Toast.makeText(PaymentActivity.this, "Error occurred, please try again", Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        }
+                                                    });
+                                        } else {
+                                            // Insufficient funds, notify the user
+                                            Toast.makeText(PaymentActivity.this, "Insufficient funds. Please Top up", Toast.LENGTH_SHORT).show();
+                                        }
+                                    } else {
+                                        // Wallet document doesn't exist
+                                        Toast.makeText(PaymentActivity.this, "Wallet not found", Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    // Handle Firestore query failure
+                                    Log.e(TAG, "Error getting wallet document", task.getException());
+                                    Toast.makeText(PaymentActivity.this, "Error getting wallet document", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
             }
         });
     }
@@ -112,6 +147,7 @@ public class PaymentActivity extends AppCompatActivity {
                     }
                 });
     }
+
 }
 //
 //        btnPayment.setOnClickListener(new View.OnClickListener() {
@@ -165,5 +201,45 @@ public class PaymentActivity extends AppCompatActivity {
 //                }
 //                Toast.makeText(PaymentActivity.this,"Please pay in cash on delivery",Toast.LENGTH_LONG).show();
 //                startActivity(new Intent(PaymentActivity.this,MainActivity.class));
+//            }
+//        });
+
+
+
+//        btnPayment.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Get the user's cash from the database
+//                db.collection("Users").document(mAuth.getCurrentUser().getUid())
+//                        .get()
+//                        .addOnCompleteListener(task -> {
+//                            if (task.isSuccessful()) {
+//                                DocumentSnapshot document = task.getResult();
+//                                if (document.exists()) {
+//                                    double cash = document.getDouble("cash");
+//                                    // Check if user has enough money
+//                                    if (cash >= amount) {
+// Subtract the amount from the user's cash
+//                                        double newCash = cash - amount;
+//                                        db.collection("Users").document(mAuth.getCurrentUser().getUid())
+//                                                .update("cash", newCash)
+//                                                .addOnCompleteListener(task1 -> {
+//                                                    if (task1.isSuccessful()) {
+//                                                        Toast.makeText(PaymentActivity.this, "Payment successful", Toast.LENGTH_SHORT).show();
+// Remove all items from the cart
+//                                                        removeAllItemsFromCart();
+// Navigate to the next activity
+//                                                        startActivity(new Intent(PaymentActivity.this, HomeFragment.class));
+//                                                        finish();
+//                                                    } else {
+//                                                        Toast.makeText(PaymentActivity.this, "Error occurred, please try again", Toast.LENGTH_SHORT).show();
+//                                                    }
+//                                                });
+//                                    } else {
+//                                        Toast.makeText(PaymentActivity.this, "Insufficient funds", Toast.LENGTH_SHORT).show();
+//                                    }
+//                                }
+//                            }
+//                        });
 //            }
 //        });
