@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                 String userEmail = email.getText().toString();
                 String userPassword = password.getText().toString();
                 if(TextUtils.isEmpty(userEmail) || TextUtils.isEmpty(userPassword)) {
-                    if (TextUtils.isEmpty(userEmail) && TextUtils.isEmpty(userPassword)) {
+                    if (TextUtils.isEmpty(  userEmail) && TextUtils.isEmpty(userPassword)) {
                         Toast.makeText(LoginActivity.this, "Please enter your email address and password", Toast.LENGTH_SHORT).show();
                         return;
                     }
